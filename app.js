@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParse = require('body-parse')
 
 var loginrouter = require('./routes/login');
 var chatrouter = require('./routes/chat');
@@ -11,8 +12,10 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
+app.use(express.static('/assets'))
+app.use(body.urlencoded({extended:false}))
+app.use(bodyParse.json())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
